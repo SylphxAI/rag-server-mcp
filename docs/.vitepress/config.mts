@@ -40,12 +40,12 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/sylphlab/rag-server-mcp' },
+      { icon: 'github', link: 'https://github.com/SylphxAI/rag-server-mcp' },
     ],
 
     editLink: {
       pattern:
-        'https://github.com/sylphlab/rag-server-mcp/edit/main/docs/:path',
+        'https://github.com/SylphxAI/rag-server-mcp/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
 

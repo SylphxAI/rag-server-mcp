@@ -15,7 +15,7 @@ This is the easiest way to get started, as it manages the server, ChromaDB, and 
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/sylphlab/rag-server-mcp.git
+    git clone https://github.com/SylphxAI/rag-server-mcp.git
     cd rag-server-mcp
     ```
 
