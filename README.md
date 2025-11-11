@@ -1,148 +1,474 @@
-# MCP RAG Server
+<div align="center">
 
-<!-- Badges -->
+# RAG Server MCP 📚
 
-[![NPM Version](https://img.shields.io/npm/v/@sylphlab/mcp-rag-server.svg)](https://www.npmjs.com/package/@sylphlab/mcp-rag-server)
-[![License](https://img.shields.io/npm/l/@sylphlab/mcp-rag-server.svg)](LICENSE)
-[![CI Status](https://github.com/sylphlab/rag-server-mcp/actions/workflows/typescript-ci.yml/badge.svg)](https://github.com/sylphlab/rag-server-mcp/actions/workflows/typescript-ci.yml)
+**Local-first Retrieval Augmented Generation for AI agents - Privacy-focused with automatic indexing**
 
-<!-- [![Coverage Status](https://coveralls.io/repos/github/sylphlab/rag-server-mcp/badge.svg?branch=main)](https://coveralls.io/github/sylphlab/rag-server-mcp?branch=main) --> <!-- TODO: Add coverage badge once setup -->
+[![npm version](https://img.shields.io/npm/v/@sylphlab/mcp-rag-server?style=flat-square)](https://www.npmjs.com/package/@sylphlab/mcp-rag-server)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/SylphxAI/rag-server-mcp/typescript-ci.yml?style=flat-square)](https://github.com/SylphxAI/rag-server-mcp/actions/workflows/typescript-ci.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](https://github.com/SylphxAI/rag-server-mcp/blob/main/LICENSE)
 
-**mcp-rag-server** is a [Model Context Protocol (MCP)](https://developer.modelcontext.dev/) server that enables Retrieval Augmented Generation (RAG) capabilities for connected LLMs. It indexes documents from your project and provides relevant context to enhance LLM responses.
+**Local models** • **Automatic indexing** • **ChromaDB vectors** • **5 MCP tools**
 
-Built with [Google Genkit](https://developer.google.com/genkit), [ChromaDB](https://www.trychroma.com/), and [Ollama](https://ollama.com/).
+[Quick Start](#-quick-start) • [Installation](#-installation) • [Tools](#-mcp-tools)
 
-## Quick Start
+<a href="https://glama.ai/mcp/servers/@sylphlab/mcp-rag-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@sylphlab/mcp-rag-server/badge" alt="RAG Server MCP" />
+</a>
 
-(Provide a minimal runnable example here, assuming Docker setup is complete)
+</div>
 
-```bash
-# Example: Querying via an MCP client (conceptual)
-# (Actual usage depends on the client implementation)
+---
+
+## 🚀 Overview
+
+Enable your AI agents with powerful Retrieval Augmented Generation (RAG) capabilities using local models. This [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server automatically indexes your project documents and provides relevant context to enhance LLM responses.
+
+**The Problem:**
+```
+Traditional RAG solutions:
+- Cloud-based (privacy concerns) ❌
+- Complex setup (multiple services) ❌
+- Manual indexing (time-consuming) ❌
+- Expensive API costs (per query) ❌
 ```
 
-## Why Choose This Project?
+**The Solution:**
+```
+RAG Server MCP:
+- Local-first (Ollama + ChromaDB) ✅
+- Docker Compose (one command) ✅
+- Automatic indexing (on startup) ✅
+- Free local models (zero API costs) ✅
+```
 
-- **Seamless MCP Integration:** Designed specifically for the Model Context Protocol ecosystem.
-- **Local Control:** Leverages local models (Ollama) and vector stores (ChromaDB) for privacy and customization.
-- **Automatic Context:** Indexes your project files automatically to provide relevant context to LLMs.
-- **Extensible:** Built with Genkit, allowing for potential future extensions and integrations.
+**Result: Privacy-focused, zero-cost RAG with automatic context retrieval for your AI agents.**
 
-## Features
+---
 
-- **Automatic Indexing:** Scans the project directory on startup (configurable) and indexes supported files.
-- **Supported File Types:** `.txt`, `.md`, code files (via generic splitting), `.json`, `.jsonl`, `.csv`. (Code file chunking is basic).
-- **Hierarchical Chunking:** Intelligently chunks Markdown files, separating text and code blocks.
-- **Vector Storage:** Uses ChromaDB for persistent vector storage.
-- **Local Embeddings:** Leverages Ollama for local embedding generation (default: `nomic-embed-text`).
-- **MCP Tools:** Exposes RAG functions as standard MCP tools:
-  - `indexDocuments`: Manually index a file or directory.
-  - `queryDocuments`: Retrieve relevant document chunks for a query.
-  - `removeDocument`: Remove a specific document's chunks by source path.
-  - `removeAllDocuments`: Clear the entire index for the current project.
-  - `listDocuments`: List indexed document source paths.
-- **Dockerized:** Includes a `docker-compose.yml` for easy setup of the server, ChromaDB, and Ollama.
+## ⚡ Key Advantages
 
-## Design Philosophy
+### Privacy & Control
 
-- **Simplicity:** Aims for a straightforward setup and usage experience, especially with Docker Compose.
-- **Modularity:** Leverages Genkit flows for organizing RAG logic.
-- **Local-First:** Prioritizes local tools like Ollama and ChromaDB for core functionality.
+| Feature | Cloud RAG | RAG Server MCP |
+|---------|-----------|----------------|
+| **Data Privacy** | ❌ Sent to cloud | ✅ 100% local |
+| **Model Control** | ❌ Fixed models | ✅ Any Ollama model |
+| **Vector Storage** | ❌ Cloud service | ✅ Local ChromaDB |
+| **Cost** | ❌ Pay per query | ✅ Free (local) |
+| **Customization** | ⚠️ Limited | ✅ Full control |
 
-## Installation & Usage (Docker Compose - Recommended)
+### Performance & Efficiency
 
-This method runs the server and its dependencies (ChromaDB, Ollama) in isolated containers.
+- **Automatic Indexing** - Scans project on startup, no manual work
+- **Persistent Vectors** - ChromaDB stores embeddings between sessions
+- **Hierarchical Chunking** - Smart markdown splitting (text + code blocks)
+- **Multiple File Types** - `.txt`, `.md`, code files, `.json`, `.csv`
+- **Local Embeddings** - Ollama `nomic-embed-text` (no API calls)
 
-1.  **Prerequisites:**
+---
 
-    - Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine.
-    - Ensure port `8000` (ChromaDB) and `11434` (Ollama) are free on your host machine, or adjust ports in `docker-compose.yml`.
+## 📦 Installation
 
-2.  **Clone the Repository:**
+### Method 1: Docker Compose (Recommended)
 
-    ```bash
-    git clone https://github.com/sylphlab/rag-server-mcp.git
-    cd mcp-rag-server
-    ```
+Run the server and all dependencies (ChromaDB, Ollama) in isolated containers.
 
-3.  **Start Services:**
+**Prerequisites:**
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine
+- Ports `8000` (ChromaDB) and `11434` (Ollama) available
 
-    ```bash
-    docker-compose up -d --build
-    ```
+**Setup:**
 
-    - This builds the server image, downloads ChromaDB and Ollama images, and starts the services.
-    - The first run might take time to download images and build.
+```bash
+# Clone repository
+git clone https://github.com/SylphxAI/rag-server-mcp.git
+cd rag-server-mcp
 
-4.  **Pull Embedding Model (First Run):**
-    The default embedding model (`nomic-embed-text`) needs to be pulled into the Ollama container _after_ it starts.
+# Start all services
+docker-compose up -d --build
 
-    ```bash
-    docker exec ollama ollama pull nomic-embed-text
-    ```
+# Pull embedding model (first run only)
+docker exec ollama ollama pull nomic-embed-text
+```
 
-    - Wait a few moments after `docker-compose up` before running this. You only need to do this once as the model will be persisted in a Docker volume.
+### Method 2: npx (Requires External Services)
 
-5.  **Integration with MCP Client:**
-    Configure your MCP client (e.g., in VS Code settings or another MCP server) to connect to this server. Since it's running via Docker Compose, you typically don't run it via `npx` directly in the client config. Instead, the client needs to know how to communicate with the running server (which isn't directly exposed by default in this setup, usually communication happens via other means like direct API calls if the server exposed an HTTP interface, or via shared volumes/databases if applicable).
+If you already have ChromaDB and Ollama running:
 
-    **Note:** The current setup primarily facilitates RAG via Genkit flows _within_ this project or potentially other services within the same Docker network. Direct MCP client integration from an external host requires exposing the server's MCP port from the Docker container.
+```bash
+# Set environment variables
+export CHROMA_URL=http://localhost:8000
+export OLLAMA_HOST=http://localhost:11434
 
-## Configuration (Environment Variables)
+# Run via npx
+npx @sylphlab/mcp-rag-server
+```
 
-Configure the server via environment variables, typically set within the `docker-compose.yml` file for the `rag-server` service:
+### Method 3: Local Development
 
-- **`CHROMA_URL`**: URL of the ChromaDB service. (Default in compose: `http://chromadb:8000`)
-- **`OLLAMA_HOST`**: URL of the Ollama service. (Default in compose: `http://ollama:11434`)
-- **`INDEX_PROJECT_ON_STARTUP`**: Set to `true` (default) or `false` to enable/disable automatic indexing on server start.
-- **`INDEXING_EXCLUDE_PATTERNS`**: Comma-separated list of glob patterns to exclude from indexing (e.g., `**/node_modules/**,**/.git/**`). Defaults are defined in `autoIndexer.ts`.
-- **`GENKIT_ENV`**: Set to `production` or `development` (influences logging, etc.).
-- **`LOG_LEVEL`**: Set log level (e.g., `debug`, `info`, `warn`, `error`).
+```bash
+# Clone and install
+git clone https://github.com/SylphxAI/rag-server-mcp.git
+cd rag-server-mcp
+npm install
 
-_(See `docker-compose.yml` and `src/config/genkit.ts` for more details)_
+# Build
+npm run build
 
-## Performance
+# Start (requires ChromaDB + Ollama)
+npm start
+```
 
-(Performance benchmarks are not yet available.)
+---
 
-## Comparison with Other Solutions
+## 🚀 Quick Start
 
-(Comparison with other RAG solutions will be added later.)
+### MCP Client Configuration
 
-## Future Plans
+Add to your MCP client configuration (e.g., Claude Desktop, Cline):
 
-- Improve code file chunking strategies.
-- Add support for more file types (e.g., PDF).
-- Enhance filtering capabilities for queries.
-- Investigate and resolve E2E test failures.
-- Add more robust error handling.
+```json
+{
+  "mcpServers": {
+    "rag-server": {
+      "command": "npx",
+      "args": ["@sylphlab/mcp-rag-server"],
+      "env": {
+        "CHROMA_URL": "http://localhost:8000",
+        "OLLAMA_HOST": "http://localhost:11434",
+        "INDEX_PROJECT_ON_STARTUP": "true"
+      }
+    }
+  }
+}
+```
 
-## Development
+**Note:** With Docker Compose, the server runs in a container. You may need to expose the MCP port or configure network settings for external client access.
 
-1.  **Prerequisites:** Node.js (LTS), npm.
-2.  **Install Dependencies:** `npm install`
-3.  **Build:** `npm run build`
-4.  **Run Linters/Formatters:**
-    - `npm run lint`
-    - `npm run format`
-    - `npm run validate` (runs format check, lint, typecheck, tests)
-5.  **Run Tests:**
-    - `npm test` (runs unit tests)
-    - `npm run test:cov` (runs unit tests with coverage)
-    - **E2E Tests:** Require Docker Compose environment running (`docker-compose up -d`). Run specific E2E tests via Vitest commands or potentially integrate into `npm test`. _(Note: E2E tests are currently failing due to external service interaction issues)._
-6.  **Run Server Locally (without Docker):**
-    - Ensure ChromaDB and Ollama are running and accessible (e.g., locally installed or separate Docker containers).
-    - Set environment variables (`CHROMA_URL`, `OLLAMA_HOST`).
-    - `npm start`
+### Basic Usage
 
-## Documentation
+Once configured, your AI agent can use RAG tools:
 
-Full documentation is available at [TODO: Add link to deployed VitePress site].
+```xml
+<!-- Index project documents -->
+<use_mcp_tool>
+  <server_name>rag-server</server_name>
+  <tool_name>indexDocuments</tool_name>
+  <arguments>{"path": "./docs"}</arguments>
+</use_mcp_tool>
 
-## Contributing
+<!-- Query for relevant context -->
+<use_mcp_tool>
+  <server_name>rag-server</server_name>
+  <tool_name>queryDocuments</tool_name>
+  <arguments>{"query": "how to configure embeddings", "topK": 5}</arguments>
+</use_mcp_tool>
 
-Contributions are welcome! Please open an issue to discuss changes before submitting a pull request. Follow coding standards and commit conventions.
+<!-- List indexed documents -->
+<use_mcp_tool>
+  <server_name>rag-server</server_name>
+  <tool_name>listDocuments</tool_name>
+</use_mcp_tool>
+```
 
-## License
+---
 
-This project is licensed under the [MIT License](LICENSE).
+## 🛠️ MCP Tools
+
+### Document Management
+
+| Tool | Description | Parameters |
+|------|-------------|------------|
+| **indexDocuments** | Index file or directory | `path`, `forceReindex?` |
+| **queryDocuments** | Retrieve relevant chunks | `query`, `topK?`, `filter?` |
+| **listDocuments** | List all indexed sources | None |
+| **removeDocument** | Remove document by path | `sourcePath` |
+| **removeAllDocuments** | Clear entire index | None |
+
+### Tool Details
+
+**indexDocuments**
+```typescript
+{
+  path: string;          // File or directory path
+  forceReindex?: boolean; // Re-index if already indexed
+}
+```
+
+**queryDocuments**
+```typescript
+{
+  query: string;    // Search query
+  topK?: number;    // Number of results (default: 5)
+  filter?: object;  // Metadata filters
+}
+```
+
+**Supported File Types:**
+- **Text**: `.txt`, `.md`
+- **Code**: `.ts`, `.js`, `.py`, `.java`, `.go`, etc.
+- **Data**: `.json`, `.jsonl`, `.csv`
+
+---
+
+## ⚙️ Configuration
+
+Configure via environment variables (set in `docker-compose.yml` or CLI):
+
+### Core Settings
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| **CHROMA_URL** | `http://chromadb:8000` | ChromaDB service URL |
+| **OLLAMA_HOST** | `http://ollama:11434` | Ollama service URL |
+| **INDEX_PROJECT_ON_STARTUP** | `true` | Auto-index on server start |
+| **GENKIT_ENV** | `production` | Environment mode |
+| **LOG_LEVEL** | `info` | Logging level |
+
+### Indexing Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| **INDEXING_EXCLUDE_PATTERNS** | `**/node_modules/**,**/.git/**` | Glob patterns to exclude |
+
+**Example Custom Config:**
+
+```yaml
+# docker-compose.yml
+services:
+  rag-server:
+    environment:
+      - INDEX_PROJECT_ON_STARTUP=true
+      - INDEXING_EXCLUDE_PATTERNS=**/node_modules/**,**/.git/**,**/dist/**
+      - LOG_LEVEL=debug
+```
+
+---
+
+## 🏗️ Architecture
+
+### Technology Stack
+
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **Framework** | [Google Genkit](https://firebase.google.com/docs/genkit) | RAG orchestration |
+| **Vector Store** | [ChromaDB](https://www.trychroma.com/) | Persistent embeddings |
+| **Embeddings** | [Ollama](https://ollama.com/) | Local embedding models |
+| **Protocol** | Model Context Protocol | AI agent integration |
+| **Language** | TypeScript | Type-safe development |
+
+### How It Works
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1. Document Indexing (Startup or Manual)               │
+│    • Scan project directory                            │
+│    • Chunk documents hierarchically                    │
+│    • Generate embeddings via Ollama                    │
+│    • Store vectors in ChromaDB                         │
+└─────────────────┬───────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────────────┐
+│ 2. Query Processing (AI Agent Request)                 │
+│    • Receive query from MCP client                     │
+│    • Generate query embedding                          │
+│    • Search ChromaDB for similar vectors              │
+│    • Return top-K relevant chunks                      │
+└─────────────────┬───────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────────────┐
+│ 3. Context Enhancement (AI Agent Uses Results)         │
+│    • Relevant context injected into prompt             │
+│    • LLM generates informed response                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎯 Use Cases
+
+### AI Code Assistants
+- **Codebase understanding** - Query project architecture
+- **API documentation** - Find relevant API docs
+- **Code examples** - Retrieve similar code patterns
+- **Dependency info** - Search package documentation
+
+### Knowledge Management
+- **Documentation search** - Find relevant docs instantly
+- **Technical notes** - Index personal knowledge base
+- **Meeting notes** - Search past discussions
+- **Research papers** - Index and query papers
+
+### Development Workflows
+- **Onboarding** - Help new developers understand codebase
+- **Code review** - Find related code for context
+- **Bug fixing** - Search for similar issues
+- **Feature development** - Discover existing patterns
+
+---
+
+## 📊 Design Philosophy
+
+### Core Principles
+
+**1. Local-First**
+- All processing happens on your machine
+- No data sent to cloud services
+- Use your own hardware and models
+
+**2. Simplicity**
+- One-command Docker Compose setup
+- Automatic indexing by default
+- Sensible defaults for all settings
+
+**3. Modularity**
+- Genkit flows organize RAG logic
+- Pluggable embedding models
+- Extensible file type support
+
+**4. Privacy**
+- Your documents never leave your machine
+- Local embedding generation
+- Local vector storage
+
+---
+
+## 🔧 Development
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Watch mode
+npm run watch
+```
+
+### Quality Checks
+
+```bash
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Run tests
+npm test
+
+# Test with coverage
+npm run test:cov
+
+# Validate all (format + lint + test)
+npm run validate
+```
+
+### Documentation
+
+```bash
+# Dev server
+npm run docs:dev
+
+# Build docs
+npm run docs:build
+
+# Preview docs
+npm run docs:preview
+```
+
+---
+
+## 🗺️ Roadmap
+
+**✅ Completed**
+- [x] MCP server implementation
+- [x] ChromaDB integration
+- [x] Ollama local embeddings
+- [x] Automatic indexing on startup
+- [x] Hierarchical markdown chunking
+- [x] Docker Compose setup
+- [x] 5 core MCP tools
+
+**🚀 Planned**
+- [ ] Advanced code file chunking (AST-based)
+- [ ] PDF file support
+- [ ] Enhanced query filtering
+- [ ] Multiple embedding model support
+- [ ] Performance benchmarks
+- [ ] Semantic caching
+- [ ] Re-ranking for better relevance
+- [ ] Web UI for index management
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. **Open an issue** - Discuss changes before implementing
+2. **Fork the repository**
+3. **Create a feature branch** - `git checkout -b feature/my-feature`
+4. **Follow coding standards** - Run `npm run validate`
+5. **Write tests** - Ensure good coverage
+6. **Submit a pull request**
+
+### Development Guidelines
+
+- Follow TypeScript strict mode
+- Use ESLint and Prettier (auto-configured)
+- Add tests for new features
+- Update documentation
+- Follow commit conventions
+
+---
+
+## 🤝 Support
+
+[![npm](https://img.shields.io/npm/v/@sylphlab/mcp-rag-server?style=flat-square)](https://www.npmjs.com/package/@sylphlab/mcp-rag-server)
+[![GitHub Issues](https://img.shields.io/github/issues/SylphxAI/rag-server-mcp?style=flat-square)](https://github.com/SylphxAI/rag-server-mcp/issues)
+
+- 🐛 [Bug Reports](https://github.com/SylphxAI/rag-server-mcp/issues)
+- 💬 [Discussions](https://github.com/SylphxAI/rag-server-mcp/discussions)
+- 📧 [Email](mailto:hi@sylphx.com)
+- 📖 [MCP Documentation](https://modelcontextprotocol.io)
+
+**Show Your Support:**
+⭐ Star • 👀 Watch • 🐛 Report bugs • 💡 Suggest features • 🔀 Contribute
+
+---
+
+## 📄 License
+
+MIT © [Sylphx](https://sylphx.com)
+
+---
+
+## 🙏 Credits
+
+Built with:
+- [Model Context Protocol](https://modelcontextprotocol.io) - AI agent standard
+- [Google Genkit](https://firebase.google.com/docs/genkit) - RAG framework
+- [ChromaDB](https://www.trychroma.com/) - Vector database
+- [Ollama](https://ollama.com/) - Local LLM runtime
+- [TypeScript](https://typescriptlang.org) - Type safety
+
+Special thanks to the MCP and Genkit communities ❤️
+
+---
+
+<p align="center">
+  <strong>Local. Private. Powerful.</strong>
+  <br>
+  <sub>RAG capabilities for AI agents with zero cloud dependencies</sub>
+  <br><br>
+  <a href="https://sylphx.com">sylphx.com</a> •
+  <a href="https://x.com/SylphxAI">@SylphxAI</a> •
+  <a href="mailto:hi@sylphx.com">hi@sylphx.com</a>
+</p>
