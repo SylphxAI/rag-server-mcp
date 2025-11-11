@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/mcp-rag-server",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "MCP server for enabling RAG",
   "license": "MIT",
   "author": "Sylphx <hi@sylphx.com> (https://sylphx.com)",
