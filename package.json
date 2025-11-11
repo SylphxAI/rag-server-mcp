@@ -4,6 +4,10 @@
   "description": "MCP server for enabling RAG",
   "license": "MIT",
   "author": "Sylphx <hi@sylphx.com> (https://sylphx.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SylphxAI/rag-server-mcp.git"
+  },
   "homepage": "https://github.com/SylphxAI/rag-server-mcp",
   "bugs": "https://github.com/SylphxAI/rag-server-mcp/issues",
   "type": "module",
