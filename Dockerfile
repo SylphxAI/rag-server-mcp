@@ -8,8 +8,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json (or yarn.lock)
 COPY package*.json ./
 
-# Install app dependencies, ignoring scripts (like 'prepare') during install
-RUN npm install --ignore-scripts
+# Install all dependencies including devDependencies for building
+RUN npm ci
 
 # Copy tsconfig and source code
 COPY tsconfig.json ./
@@ -46,4 +46,4 @@ COPY package.json .
 
 # Define the command to run the app
 # This should match your start script or the direct command
-CMD ["node", "dist/src/mcp/server.js"]
+CMD ["node", "dist/mcp/server.js"]

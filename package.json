@@ -8,18 +8,18 @@
   "bugs": "https://github.com/SylphxAI/rag-server-mcp/issues",
   "type": "module",
   "bin": {
-    "mcp-rag-server": "dist/src/mcp/server.js"
+    "mcp-rag-server": "dist/mcp/server.js"
   },
   "files": [
-    "dist/src/mcp",
-    "dist/src/rag",
-    "dist/src/common",
-    "dist/src/config"
+    "dist/mcp",
+    "dist/rag",
+    "dist/common",
+    "dist/config"
   ],
   "scripts": {
     "build": "tsc",
-    "start": "node dist/src/mcp/server.js",
-    "inspect": "npx @modelcontextprotocol/inspector node dist/src/mcp/server.js",
+    "start": "node dist/mcp/server.js",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/mcp/server.js",
     "watch": "tsc --watch",
     "test": "vitest run",
     "test:watch": "vitest watch",
@@ -48,12 +48,10 @@
     "shx": "^0.4.0",
     "typedoc": "^0.28.1",
     "typedoc-plugin-markdown": "^4.6.1",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.29.0",
     "vitepress": "^1.6.3",
     "vitest": "^3.1.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
   },
   "dependencies": {
     "@genkit-ai/dev-local-vectorstore": "^1.5.0",
