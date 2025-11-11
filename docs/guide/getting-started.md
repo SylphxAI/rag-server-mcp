@@ -60,5 +60,5 @@ Once the server is running and connected to your MCP client (like the VS Code ex
 
 ## Next Steps
 
-- Explore the [API Reference](/api/) for detailed tool schemas.
+- Explore the API Reference for detailed tool schemas (coming soon).
 - Customize the configuration based on your project needs.
