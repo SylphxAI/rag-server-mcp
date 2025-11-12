@@ -21,7 +21,7 @@
     "dist/config"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "bunup",
     "start": "node dist/mcp/server.js",
     "inspect": "npx @modelcontextprotocol/inspector node dist/mcp/server.js",
     "watch": "tsc --watch",
