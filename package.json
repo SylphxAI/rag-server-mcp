@@ -40,7 +40,9 @@
     "clean:docs": "rm -rf docs/.vitepress/dist docs/api",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "changeset:publish": "changeset publish",
+    "version-packages": "changeset version",
+    "release": "bun run build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
