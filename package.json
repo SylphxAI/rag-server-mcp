@@ -28,6 +28,7 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:cov": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs --cache",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.cjs --fix --cache",
     "format": "prettier --write . --cache",
@@ -58,7 +59,7 @@
     "shx": "^0.4.0",
     "typedoc": "^0.28.1",
     "typedoc-plugin-markdown": "^4.6.1",
-    "typescript": "^5.9.3",
+    "typescript": "5.8.3",
     "typescript-eslint": "^8.29.0",
     "vitepress": "^1.6.3",
     "vitest": "^3.1.1"

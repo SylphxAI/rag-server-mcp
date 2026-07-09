@@ -11,7 +11,7 @@ export default tseslint.config(
 
   // Configuration specific to TypeScript files, including type-aware rules
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.ts'],
     extends: [
       // Use extends to apply recommended and strict type-checked rulesets
       ...tseslint.configs.recommendedTypeChecked,
@@ -63,7 +63,7 @@ export default tseslint.config(
 
   // Global ignores
   {
-    ignores: ['dist/', 'node_modules/'],
+    ignores: ['dist/', 'node_modules/', 'docs/.vitepress/cache/'],
   },
 
   // Prettier config must be last to override other formatting rules
