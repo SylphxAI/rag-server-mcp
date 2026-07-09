@@ -3,7 +3,7 @@
 Status: deprecated adoption plan
 Owner: RAG Server MCP
 Scope: repo-local future plan and its role in the SylphxAI MCP family
-Decision record: pending PR-number ADR
+Decision record: `docs/adr/ADR-4-mcp-family-sota-roadmap.md`
 
 ## Family Role
 
