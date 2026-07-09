@@ -1,7 +1,7 @@
 # ADR-4: Adopt RAG Server MCP Retirement Roadmap
 
 Date: 2026-07-09
-Status: Proposed in PR #4
+Status: Accepted
 Slug: mcp-family-sota-roadmap
 
 ## Context
