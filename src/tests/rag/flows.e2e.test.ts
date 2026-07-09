@@ -130,7 +130,10 @@ async function indexTestFileContent(
 }
 
 // --- Test Suite ---
-describe('RAG Flows - E2E Tests', () => {
+const describeRagE2e =
+  process.env['RUN_RAG_E2E'] === '1' ? describe : describe.skip;
+
+describeRagE2e('RAG Flows - E2E Tests', () => {
   // Remove declaration from here as it's now outside
   beforeAll(async () => {
     // Genkit initialization moved to top level

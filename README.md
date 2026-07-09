@@ -29,21 +29,21 @@ We completely rewrote this project from scratch. Here's what you get:
 
 ### ⚡ Lightning Fast
 
-| Feature | Old (rag-server-mcp) | New (CodeRAG) |
-|---------|---------------------|---------------|
-| **Startup** | 10-30s (ChromaDB + Ollama) | **<1s** (no external deps) |
+| Feature      | Old (rag-server-mcp)          | New (CodeRAG)                           |
+| ------------ | ----------------------------- | --------------------------------------- |
+| **Startup**  | 10-30s (ChromaDB + Ollama)    | **<1s** (no external deps)              |
 | **Indexing** | Minutes (embedding API calls) | **Seconds** (TF-IDF + optional vectors) |
-| **Search** | ~500ms (vector only) | **<50ms** (hybrid search) |
-| **Memory** | 500MB+ (ChromaDB) | **<100MB** (SQLite) |
+| **Search**   | ~500ms (vector only)          | **<50ms** (hybrid search)               |
+| **Memory**   | 500MB+ (ChromaDB)             | **<100MB** (SQLite)                     |
 
 ### 🧠 Smarter Search
 
-| Feature | Old | New |
-|---------|-----|-----|
-| **TF-IDF** | ❌ | ✅ StarCoder2 tokenizer |
-| **Vector Search** | ✅ Basic | ✅ Hybrid (TF-IDF + Vector) |
-| **Code Understanding** | ❌ Generic | ✅ Code-aware tokenization |
-| **Incremental Updates** | ❌ Full rebuild | ✅ Smart diff detection |
+| Feature                 | Old             | New                         |
+| ----------------------- | --------------- | --------------------------- |
+| **TF-IDF**              | ❌              | ✅ StarCoder2 tokenizer     |
+| **Vector Search**       | ✅ Basic        | ✅ Hybrid (TF-IDF + Vector) |
+| **Code Understanding**  | ❌ Generic      | ✅ Code-aware tokenization  |
+| **Incremental Updates** | ❌ Full rebuild | ✅ Smart diff detection     |
 
 ### 🔧 Zero Dependencies
 
@@ -101,19 +101,19 @@ No Docker. No Ollama. No ChromaDB. Just works.
 
 ## 📊 Feature Comparison
 
-| Feature | rag-server-mcp | CodeRAG |
-|---------|---------------|---------|
-| **External Services** | ChromaDB + Ollama | None |
-| **Docker Required** | Yes | No |
-| **Startup Time** | 10-30s | <1s |
-| **Search Algorithm** | Vector only | Hybrid (TF-IDF + Vector) |
-| **Code Tokenization** | Generic | StarCoder2 (code-aware) |
-| **Incremental Index** | No | Yes |
-| **Memory Usage** | 500MB+ | <100MB |
-| **Low Memory Mode** | No | Yes (SQL-based) |
-| **Offline Support** | No (needs Ollama) | Yes (TF-IDF) |
-| **Vector Search** | Required | Optional |
-| **Actively Maintained** | ❌ No | ✅ Yes |
+| Feature                 | rag-server-mcp    | CodeRAG                  |
+| ----------------------- | ----------------- | ------------------------ |
+| **External Services**   | ChromaDB + Ollama | None                     |
+| **Docker Required**     | Yes               | No                       |
+| **Startup Time**        | 10-30s            | <1s                      |
+| **Search Algorithm**    | Vector only       | Hybrid (TF-IDF + Vector) |
+| **Code Tokenization**   | Generic           | StarCoder2 (code-aware)  |
+| **Incremental Index**   | No                | Yes                      |
+| **Memory Usage**        | 500MB+            | <100MB                   |
+| **Low Memory Mode**     | No                | Yes (SQL-based)          |
+| **Offline Support**     | No (needs Ollama) | Yes (TF-IDF)             |
+| **Vector Search**       | Required          | Optional                 |
+| **Actively Maintained** | ❌ No             | ✅ Yes                   |
 
 ---
 

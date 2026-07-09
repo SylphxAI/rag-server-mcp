@@ -29,6 +29,21 @@ type MockAiInstance = {
   embed: ReturnType<typeof vi.fn>; // Add mock for embed
 };
 
+const chromaMocks = vi.hoisted(() => {
+  const collection = {
+    add: vi.fn(),
+    query: vi.fn(),
+    get: vi.fn(),
+    delete: vi.fn(),
+    count: vi.fn(),
+  };
+
+  return {
+    collection,
+    getOrCreateCollection: vi.fn().mockResolvedValue(collection),
+  };
+});
+
 // Mock the Genkit AI instance and its methods used within the flows
 // IMPORTANT: Avoid assigning to external variables inside the factory due to hoisting
 // Unused variable mockCollection removed
@@ -49,16 +64,18 @@ vi.mock('genkit', async (importOriginal) => {
   };
 });
 
+vi.mock('chromadb', () => ({
+  ChromaClient: vi.fn(() => ({
+    getOrCreateCollection: chromaMocks.getOrCreateCollection,
+  })),
+  IncludeEnum: {
+    Metadatas: 'metadatas',
+    Documents: 'documents',
+  },
+}));
+
 // Mock the file system operations
 vi.mock('fs');
-// Mock the flows module to intercept getChromaCollection
-vi.mock('../../rag/flows.js', async (importOriginal) => {
-  const original = await importOriginal<typeof import('../../rag/flows.js')>();
-  return {
-    ...original,
-    getChromaCollection: vi.fn(), // Mock the exported function
-  };
-});
 
 // Mock the file system operations more directly
 vi.mock('fs', async (importOriginal) => {
@@ -186,7 +203,7 @@ describe('RAG Manager Flows (Genkit)', () => {
   });
 
   // Ensure mocks are reset before each test
-  beforeEach(async () => {
+  beforeEach(() => {
     // Make beforeEach async
     // Make beforeEach synchronous again
     vi.clearAllMocks();
@@ -197,33 +214,23 @@ describe('RAG Manager Flows (Genkit)', () => {
     // Define the type inline for clarity if MockCollectionType was removed
     // Initialize mockCollection declared outside
     // Initialize mockCollection declared outside
-    mockCollection = {
-      add: vi.fn().mockResolvedValue(undefined),
-      query: vi
-        .fn()
-        .mockResolvedValue({
-          ids: [[]],
-          embeddings: [[]],
-          documents: [[]],
-          metadatas: [[]],
-        }), // Default mock
-      get: vi
-        .fn()
-        .mockResolvedValue({
-          ids: [],
-          embeddings: [],
-          documents: [],
-          metadatas: [],
-        }),
-      delete: vi.fn().mockResolvedValue(undefined),
-      count: vi.fn().mockResolvedValue(0),
-    };
-    // Ensure the mock function itself is mocked correctly before assigning resolved value
-    // Need to re-import getChromaCollection if it was removed from import statement
-    const { getChromaCollection } = await import('../../rag/flows.js');
-    (getChromaCollection as ReturnType<typeof vi.fn>)
-      .mockClear()
-      .mockResolvedValue(mockCollection);
+    mockCollection = chromaMocks.collection;
+    mockCollection.add.mockResolvedValue(undefined);
+    mockCollection.query.mockResolvedValue({
+      ids: [[]],
+      embeddings: [[]],
+      documents: [[]],
+      metadatas: [[]],
+    }); // Default mock
+    mockCollection.get.mockResolvedValue({
+      ids: [],
+      embeddings: [],
+      documents: [],
+      metadatas: [],
+    });
+    mockCollection.delete.mockResolvedValue(undefined);
+    mockCollection.count.mockResolvedValue(0);
+    chromaMocks.getOrCreateCollection.mockResolvedValue(mockCollection);
 
     // Reset fs mocks (vi.clearAllMocks should handle mocks created by vi.mock)
   });

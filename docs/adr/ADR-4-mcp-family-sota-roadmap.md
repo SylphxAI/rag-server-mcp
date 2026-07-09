@@ -15,7 +15,8 @@ code-retrieval ownership.
 Adopt `docs/roadmap/sota-family-roadmap.md` as the repo-local retirement
 roadmap.
 
-Future code retrieval work belongs in CodeRAG. This repository remains
+Future code retrieval work belongs in CodeRAG, including the Rust MCP server
+path using `modelcontextprotocol/rust-sdk` / `rmcp`. This repository remains
 deprecated and should publish only emergency security forward fixes if needed.
 
 ## Consequences
@@ -24,6 +25,7 @@ deprecated and should publish only emergency security forward fixes if needed.
 - Migration guidance stays prominent.
 - Architecture Reader and other family tools integrate with CodeRAG, not this
   predecessor.
+- The repo does not grow a new TypeScript MCP adapter roadmap.
 
 ## Verification
 
