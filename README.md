@@ -19,6 +19,8 @@
 
 </div>
 
+SOTA family roadmap: [docs/roadmap/sota-family-roadmap.md](docs/roadmap/sota-family-roadmap.md).
+
 ---
 
 ## 🎉 Why CodeRAG is 10x Better
